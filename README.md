@@ -4,14 +4,18 @@
 
 Fokus: **Haltung, Schulter, Hüftrotation.** Jeden Morgen direkt nach dem Aufstehen.
 
-| Zeit | Ablauf |
-|---|---|
-| 6:30 | Aufstehen, Licht an, großes Glas Wasser |
-| 6:33 | **Mobility (diese Seite)** |
-| 6:41 | Atmen, 3 Min.: Cyclic Sighing (2× durch die Nase ein, lang durch den Mund aus) |
-| 6:45 | Lauwarm duschen, eincremen |
-| 6:55 | Frühstück |
-| 7:15 | Zu Fuß ins Büro |
+**Ablauf in der App** (To-dos zum Abhaken, Blöcke zum Öffnen):
+
+| Zeit | Schritt | |
+|---|---|---|
+| 6:30 | Aufstehen, Licht an, Glas Wasser | ☐ |
+| 6:32 | Zähne putzen | ☐ |
+| 6:35 | Duschen, eincremen | ☐ |
+| 6:45 | **Mobility** (7 Übungen, unten) | Block |
+| 6:53 | **Atmen** (Cyclic Sighing, 3 Min.) | Block |
+| 6:56 | Bett machen | ☐ |
+| 7:00 | Frühstücken | ☐ |
+| 7:15 | Los ins Büro | ☐ |
 
 > 🟠 Orange = der Teil, der sich bewegt. Die Zeichnungen zeigen das Prinzip, die Videos die genaue Technik.
 

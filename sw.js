@@ -1,4 +1,4 @@
-const C = "get-moving-v1";
+const C = "get-moving-v2";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-180.png"]
   .concat(["01-katze-kuh","02-open-book","03-wandengel","04-y-t-raises","05-90-90","06-tiefe-hocke","07-dead-hang"]
   .flatMap(id => [1,2,3].map(n => `bilder/${id}-${n}.svg`)));

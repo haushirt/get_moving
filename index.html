@@ -75,18 +75,38 @@ button{font:inherit;border:0;cursor:pointer;color:inherit;background:none}
 /* Fertig */
 .done{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:8px}
 .done .big{font-size:64px}
+
+/* Routine */
+.dayHead{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
+.date{color:var(--muted);font-size:14px}
+.rprog{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:10px 0 18px}
+.rprog i{display:block;height:100%;background:var(--ok);width:0;transition:width .4s}
+.routine{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.todo{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;width:100%}
+.todo .tm{width:44px;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;flex:none}
+.todo .tx{flex:1}
+.todo .tx small{display:block;color:var(--muted);font-size:13px;margin-top:1px}
+.chk{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700}
+.todo.on .chk{background:var(--ok);border-color:var(--ok)}
+.todo.on .tx b{text-decoration:line-through;color:var(--muted)}
+.todo.block{border:1.5px solid var(--acc);background:linear-gradient(0deg,var(--card),var(--card))}
+.todo.block .open{background:var(--acc);color:#fff;border-radius:999px;padding:8px 14px;font-weight:650;font-size:14px;flex:none}
+.todo.block.on .open{background:var(--line);color:var(--muted)}
+.allDone{background:var(--ok);color:#fff;border-radius:16px;padding:14px;text-align:center;font-weight:650;margin-bottom:14px}
+.reset{color:var(--muted);font-size:13px;text-decoration:underline;margin:4px auto 0;display:block}
 </style>
 </head>
 <body>
 
 <!-- START -->
 <section id="start">
-  <h1>Get Moving</h1>
-  <p class="sub">8 Min. Mobility + 3 Min. Atmen · Haltung, Schulter, Hüfte</p>
+  <div class="dayHead"><h1>Guten Morgen</h1><span class="date" id="date"></span></div>
+  <div class="rprog"><i id="rbar"></i></div>
+  <div id="allDone" class="allDone hidden">✓ Morgenroutine erledigt. Ab ins Haus Hirt!</div>
+  <div class="routine" id="routine"></div>
   <div class="streak" id="streak"></div>
   <div class="streakTxt" id="streakTxt"></div>
-  <div class="list" id="list"></div>
-  <button class="btn" id="go">Los geht's</button>
+  <button class="reset" id="reset">Heute zurücksetzen</button>
 </section>
 
 <!-- PLAYER -->
@@ -106,9 +126,9 @@ button{font:inherit;border:0;cursor:pointer;color:inherit;background:none}
 <!-- DONE -->
 <section id="done" class="hidden done">
   <div class="big">✓</div>
-  <h1>Erledigt</h1>
+  <h1 id="doneTitle">Erledigt</h1>
   <p class="sub" id="doneTxt"></p>
-  <button class="btn" id="home">Fertig</button>
+  <button class="btn" id="home">Weiter mit der Routine</button>
 </section>
 
 <script>
@@ -138,40 +158,98 @@ const EX = [
   cue:["2× durch die Nase einatmen (tief, dann kurz nachziehen)","Lang und langsam durch den Mund ausatmen"]}
 ];
 
+
+// Morgenroutine: To-dos zum Abhaken, Blöcke zum Öffnen
+const ROUTINE = [
+ {id:"auf",     t:"6:30", name:"Aufstehen",       sub:"Licht an, großes Glas Wasser"},
+ {id:"zaehne",  t:"6:32", name:"Zähne putzen"},
+ {id:"dusche",  t:"6:35", name:"Duschen",         sub:"lauwarm, danach eincremen"},
+ {id:"mobility",t:"6:45", name:"Mobility",        sub:"7 Übungen · 8 Min.", block:[0,1,2,3,4,5,6]},
+ {id:"atmen",   t:"6:53", name:"Atmen",           sub:"Cyclic Sighing · 3 Min.", block:[7]},
+ {id:"bett",    t:"6:56", name:"Bett machen"},
+ {id:"fruehst", t:"7:00", name:"Frühstücken",     sub:"Protein + Ballaststoffe"},
+ {id:"los",     t:"7:15", name:"Los ins Büro",    sub:"zu Fuß, Tageslicht tanken"}
+];
+
 const $ = s => document.querySelector(s);
 const store = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d }catch(e){ return d } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} }
 };
 const today = () => new Date().toLocaleDateString("sv-SE");
-let i=0, frameT=null, tickT=null, left=0, running=false, wake=null;
+let seq=[], i=0, curBlock=null, frameT=null, tickT=null, left=0, running=false, wake=null;
+const mem = {}; // Fallback, falls Speicher blockiert ist
+
+function checked(){ const all=store.get("checks",{}); return all[today()] || mem[today()] || []; }
+function setChecked(list){
+  mem[today()] = list;
+  const all = store.get("checks",{}); all[today()] = list;
+  Object.keys(all).sort().slice(0,-30).forEach(k=>delete all[k]);
+  store.set("checks", all);
+  const days = store.get("days",[]);
+  const complete = ROUTINE.every(r=>list.includes(r.id));
+  const has = days.includes(today());
+  if(complete && !has){ days.push(today()); store.set("days", days.slice(-60)); }
+  if(!complete && has){ store.set("days", days.filter(d=>d!==today())); }
+}
+function toggle(id, force){
+  let c = checked().slice();
+  const on = force!==undefined ? force : !c.includes(id);
+  c = c.filter(x=>x!==id); if(on) c.push(id);
+  setChecked(c); renderStart();
+}
 
 function renderStart(){
-  $("#list").innerHTML = EX.map((e,k)=>`<div class="item"><span class="n">${e.breath?"~":k+1}</span><span class="t">${e.name}</span><span class="d">${e.dose}</span></div>`).join("");
+  const c = checked();
+  $("#date").textContent = new Date().toLocaleDateString("de-AT",{weekday:"long", day:"numeric", month:"long"});
+  $("#routine").innerHTML = ROUTINE.map(r=>{
+    const on = c.includes(r.id);
+    return `<div class="todo ${r.block?"block":""} ${on?"on":""}" data-id="${r.id}">
+      <span class="tm">${r.t}</span>
+      <span class="tx"><b>${r.name}</b>${r.sub?`<small>${r.sub}</small>`:""}</span>
+      ${r.block?`<button class="open" data-open="${r.id}">${on?"Nochmal":"Öffnen"}</button>`:""}
+      <button class="chk" data-chk="${r.id}" aria-label="${r.name} abhaken">${on?"✓":""}</button>
+    </div>`;
+  }).join("");
+  const n = ROUTINE.filter(r=>c.includes(r.id)).length;
+  $("#rbar").style.width = (n/ROUTINE.length*100)+"%";
+  $("#allDone").classList.toggle("hidden", n<ROUTINE.length);
+
   const days = store.get("days",[]);
-  let html="", n=0;
+  let html="", k=0;
   for(let d=6; d>=0; d--){
     const dt=new Date(); dt.setDate(dt.getDate()-d);
-    const on = days.includes(dt.toLocaleDateString("sv-SE")); if(on) n++;
+    const on = days.includes(dt.toLocaleDateString("sv-SE")); if(on) k++;
     html += `<span class="${on?"on":""}"></span>`;
   }
   $("#streak").innerHTML = html;
-  $("#streakTxt").textContent = `${n} von 7 Tagen gemacht` + (days.includes(today())?" · heute ✓":"");
+  $("#streakTxt").textContent = `${k} von 7 Tagen komplett`;
 }
 
-function show(id){ ["start","player","done"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); }
+$("#routine").addEventListener("click", e=>{
+  const o = e.target.closest("[data-open]"); if(o){ openBlock(o.dataset.open); return; }
+  const ch = e.target.closest("[data-chk]"); if(ch){ toggle(ch.dataset.chk); return; }
+  const row = e.target.closest(".todo");
+  if(row){ const r = ROUTINE.find(x=>x.id===row.dataset.id); r.block ? openBlock(r.id) : toggle(r.id); }
+});
 
+function openBlock(id){
+  curBlock = ROUTINE.find(r=>r.id===id);
+  seq = curBlock.block.map(k=>EX[k]); i=0;
+  show("player"); renderEx(); keepAwake(true);
+}
+
+function show(id){ ["start","player","done"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); window.scrollTo(0,0); }
 function fmt(s){ return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
-
 function stopTimers(){ clearInterval(frameT); clearInterval(tickT); running=false; }
 
 function renderEx(){
   stopTimers();
-  const e = EX[i];
-  $("#bar").style.width = (i/EX.length*100)+"%";
-  $("#cnt").textContent = `${i+1}/${EX.length}`;
+  const e = seq[i];
+  $("#bar").style.width = (i/seq.length*100)+"%";
+  $("#cnt").textContent = seq.length>1 ? `${i+1}/${seq.length}` : "";
   $("#back").disabled = i===0; $("#back").style.opacity = i===0?.4:1;
-  $("#next").textContent = i===EX.length-1 ? "Abschließen" : "Weiter";
+  $("#next").textContent = i===seq.length-1 ? "Abschließen" : "Weiter";
   let media;
   if(e.breath){
     media = `<div class="breath"><div class="orb" id="orb"></div><div class="bLabel" id="bl">Bereit</div></div>`;
@@ -223,18 +301,22 @@ async function keepAwake(on){
 
 function finish(){
   stopTimers(); keepAwake(false);
-  const days = store.get("days",[]); if(!days.includes(today())) days.push(today());
-  store.set("days", days.slice(-60));
-  $("#doneTxt").textContent = "Gut gemacht. Jetzt duschen, eincremen, frühstücken.";
+  toggle(curBlock.id, true);
+  const next = ROUTINE.find(r=>!checked().includes(r.id));
+  $("#doneTitle").textContent = curBlock.name + " erledigt";
+  $("#doneTxt").textContent = next ? `Als Nächstes: ${next.name}` : "Morgenroutine komplett.";
   show("done");
 }
 
-$("#go").onclick=()=>{ i=0; show("player"); renderEx(); keepAwake(true); };
-$("#next").onclick=()=>{ if(i<EX.length-1){ i++; renderEx(); } else finish(); };
+$("#next").onclick=()=>{ if(i<seq.length-1){ i++; renderEx(); } else finish(); };
 $("#back").onclick=()=>{ if(i>0){ i--; renderEx(); } };
 $("#quit").onclick=()=>{ stopTimers(); keepAwake(false); renderStart(); show("start"); };
 $("#home").onclick=()=>{ renderStart(); show("start"); };
-document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && !$("#player").classList.contains("hidden")) keepAwake(true); });
+$("#reset").onclick=()=>{ if(confirm("Heutige Häkchen zurücksetzen?")){ setChecked([]); renderStart(); } };
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState!=="visible") return;
+  if(!$("#player").classList.contains("hidden")) keepAwake(true); else renderStart();
+});
 
 renderStart();
 if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
