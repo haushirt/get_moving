@@ -1,5 +1,7 @@
 # Morgen-Mobility · 8 Minuten
 
+📱 **Web-App:** https://haushirt.github.io/get_moving/ (in Safari öffnen → Teilen → „Zum Home-Bildschirm“)
+
 Fokus: **Haltung, Schulter, Hüftrotation.** Jeden Morgen direkt nach dem Aufstehen.
 
 | Zeit | Ablauf |
