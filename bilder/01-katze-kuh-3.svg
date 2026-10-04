@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="400" height="280" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e4572e"/></marker></defs>
+<rect x="1" y="1" width="398" height="278" rx="14" fill="#fbfaf7" stroke="#e6e2da"/>
+<text x="20" y="34" font-size="17" font-weight="700" fill="#2b2b2b">3 · Katze</text>
+<text x="20" y="54" font-size="12.5" fill="#6b6b6b">ausatmen, Wirbel für Wirbel einrollen</text>
+<line x1="30" y1="236" x2="370" y2="236" stroke="#9aa5b1" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/><polyline points="120,236 120,150" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="260,150 260,236 335,236" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M120,150 Q190,92 260,150" fill="none" stroke="#e4572e" stroke-width="7" stroke-linecap="round"/><polyline points="120,150 112,178" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="172" r="14" fill="#fbfaf7" stroke="#2b2b2b" stroke-width="5"/><text x="190" y="84" font-size="12" fill="#e4572e" text-anchor="middle">Rücken rund, Kinn zur Brust</text>
+</svg>

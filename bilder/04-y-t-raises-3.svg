@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="400" height="280" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e4572e"/></marker></defs>
+<rect x="1" y="1" width="398" height="278" rx="14" fill="#fbfaf7" stroke="#e6e2da"/>
+<text x="20" y="34" font-size="17" font-weight="700" fill="#2b2b2b">3 · Wie hoch?</text>
+<text x="20" y="54" font-size="12.5" fill="#6b6b6b">klein und kontrolliert, 2 s halten</text>
+<line x1="30" y1="206" x2="370" y2="206" stroke="#9aa5b1" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/><polyline points="70,196 300,196" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="300,196 350,202" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="58" cy="190" r="14" fill="#fbfaf7" stroke="#2b2b2b" stroke-width="5"/><polyline points="110,196 40,170" fill="none" stroke="#e4572e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M44,196 Q28,186 36,172" fill="none" stroke="#e4572e" stroke-width="2.5" marker-end="url(#ah)"/><text x="200" y="232" font-size="12" fill="#e4572e" text-anchor="middle">Seitenansicht: nur Arme heben, Kopf bleibt unten</text>
+</svg>

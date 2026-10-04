@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="400" height="280" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e4572e"/></marker></defs>
+<rect x="1" y="1" width="398" height="278" rx="14" fill="#fbfaf7" stroke="#e6e2da"/>
+<text x="20" y="34" font-size="17" font-weight="700" fill="#2b2b2b">3 · Rechts + Lift</text>
+<text x="20" y="54" font-size="12.5" fill="#6b6b6b">5× hinteres Knie anheben = Innenrotation</text>
+<text x="380" y="268" font-size="12" fill="#9aa5b1" text-anchor="end">Ansicht von oben</text><polyline points="225,140 175,140" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="225,140 225,210 140,210" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="175,140 100,140 100,70" fill="none" stroke="#e4572e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="200,140 200,120" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="200" cy="112" r="15" fill="#fbfaf7" stroke="#2b2b2b" stroke-width="5"/><text x="30" y="250" font-size="12" fill="#e4572e" text-anchor="start">hinteres Knie 2–3 cm heben</text>
+</svg>

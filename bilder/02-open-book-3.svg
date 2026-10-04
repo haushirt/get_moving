@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="400" height="280" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e4572e"/></marker></defs>
+<rect x="1" y="1" width="398" height="278" rx="14" fill="#fbfaf7" stroke="#e6e2da"/>
+<text x="20" y="34" font-size="17" font-weight="700" fill="#2b2b2b">3 · Offen halten</text>
+<text x="20" y="54" font-size="12.5" fill="#6b6b6b">2–3 Atemzüge, dann zurück</text>
+<text x="380" y="268" font-size="12" fill="#9aa5b1" text-anchor="end">Ansicht von oben</text><polyline points="150,150 270,150" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="270,150 300,205 360,195" fill="none" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="150,150 150,215" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="150,150 92,92" fill="none" stroke="#e4572e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="122" cy="150" r="14" fill="#fbfaf7" stroke="#2b2b2b" stroke-width="5"/><text x="200" y="92" font-size="12" fill="#e4572e" text-anchor="start">Knie bleiben unten!</text>
+</svg>
